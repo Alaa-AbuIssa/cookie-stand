@@ -265,7 +265,7 @@ let parisCookies = {
         list.appendChild(listItem);
       }
       let listItem = document.createElement('li');
-      listItem.textContent = 'Total: ' + limaCookies.dailySales + ' cookies';
+      listItem.textContent = 'Total:' + limaCookies.dailySales + ' cookies';
       list.appendChild(listItem);
     },
   };
