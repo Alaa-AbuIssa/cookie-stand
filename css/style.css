@@ -1,18 +1,21 @@
- * {
+* {
   font-family: Arial, sans-serif;
   box-sizing: border-box;
   
 }
-#sea{
+body{
+background-image:url("../img/480799.jpg");
 background-size: cover;
-}
 
+}
 
 #logo {
+float: left;
+width: 10%;
+height: 10%;
 
-  float: left;
-  width: 10%;
 }
+
 
 .welcoming {
 font-family:cursive;
@@ -32,10 +35,12 @@ table,th,td {
   
 } 
 img{
+  
   display: block;
   width: 35%;
   margin: 3% auto;
 } 
+
 
 
 

@@ -121,40 +121,40 @@ branchCookie.prototype.render = function () {
 
 }
 
-// // get the element by id for the form
-// let branchesForm= document.getElementById('branchesForm');
-// console.log(branchesForm);
+// get the element by id for the form
+let branchesForm= document.getElementById('branchesForm');
+console.log(branchesForm);
 
-// // add the event listener
+// add the event listener
 
-// branchesForm.addEventListener('submit',submitter);
+branchesForm.addEventListener('submit',submitter);
 
-// // create the submitter function
+// create the submitter function
 
-// function submitter(event) {
-//     // console.log("hello");
-//   // prevent the default behaviour of refreshing the page
-//   event.preventDefault();
+function submitter(event) {
+    // console.log("hello");
+  // prevent the default behaviour of refreshing the page
+  event.preventDefault();
 
-//   console.log(event);
+  console.log(event);
 
-//   branchName, minCustumerNumber, maxCustomerNumber, avgCookie
+  branchName, minCustumerNumber, maxCustomerNumber, avgCookie
 
-// //   new instance of the constructor with the new info
-//   let amman=new branchCookie(branchName, minCustomerNum, maxCustomerNum, avgCookiesNum);
-//   console.log(amman);
+//   new instance of the constructor with the new info
+  let amman=new branchCookie(branchName, minCustomerNum, maxCustomerNum, avgCookiesNum);
+  console.log(amman);
 
-//   let container=document.getElementById('branchesProfile');
+  let container=document.getElementById('branchesProfile');
 
-//   container.textContent='';
+  container.textContent='';
   
-//   for (let i = 0; i < hours.length; i++) {
-//     branches[i].calcCustomerPerHour();
-//     branches[i].calcookiesPerHour();
+  for (let i = 0; i < hours.length; i++) {
+    branches[i].calcCustomerPerHour();
+    branches[i].calcookiesPerHour();
     
-//     branches[i].render();
-//   }
-// }
+    branches[i].render();
+  }
+}
 
 
 // footer function
