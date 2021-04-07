@@ -1,5 +1,4 @@
 'use strict';
-console.log("hello");
 
 let hours = ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 am', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm'];
 let branches = [];
@@ -101,7 +100,7 @@ branchCookie.prototype.render = function () {
     // append 
     BranchRow.appendChild(tableData);
     //  text content
-    tableData.textContent=this.name;
+    tableData.textContent=this.branch;
 
 
     for (let i = 0; i < hours.length; i++) {
@@ -122,6 +121,40 @@ branchCookie.prototype.render = function () {
 
 }
 
+// // get the element by id for the form
+// let branchesForm= document.getElementById('branchesForm');
+// console.log(branchesForm);
+
+// // add the event listener
+
+// branchesForm.addEventListener('submit',submitter);
+
+// // create the submitter function
+
+// function submitter(event) {
+//     // console.log("hello");
+//   // prevent the default behaviour of refreshing the page
+//   event.preventDefault();
+
+//   console.log(event);
+
+//   branchName, minCustumerNumber, maxCustomerNumber, avgCookie
+
+// //   new instance of the constructor with the new info
+//   let amman=new branchCookie(branchName, minCustomerNum, maxCustomerNum, avgCookiesNum);
+//   console.log(amman);
+
+//   let container=document.getElementById('branchesProfile');
+
+//   container.textContent='';
+  
+//   for (let i = 0; i < hours.length; i++) {
+//     branches[i].calcCustomerPerHour();
+//     branches[i].calcookiesPerHour();
+    
+//     branches[i].render();
+//   }
+// }
 
 
 // footer function
@@ -180,3 +213,4 @@ for (let i = 0; i < branches.length; i++) {
     branches[i].render();
 }
 footer();
+
