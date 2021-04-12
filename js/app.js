@@ -1,216 +1,237 @@
 'use strict';
 
-let hours = ['6 am', '7 am', '8 am', '9 am', '10 am', '11 am', '12 am', '1 pm', '2 pm', '3 pm', '4 pm', '5 pm', '6 pm', '7 pm', '8 pm'];
-let branches = [];
-  
-  function randomCustumerNumber(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+const hours= [
+  '6am',
+  '7am',
+  '8am',
+  '9am',
+  '10am',
+  '11am',
+  '12pm',
+  '1pm',
+  '2pm',
+  '3pm',
+  '4pm',
+  '5pm',
+  '6pm',
+  '7pm',
+];
+
+function randomNumberOf(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// constructor function for all object branch cookies
+let BranchArr = [];
 
-function branchCookie(branchName, minCustomerNum, maxCustomerNum, avgCookiesNum) {
-    this.branch = branchName;
-    this.minNum = minCustomerNum;
-    this.maxNum = maxCustomerNum;
-    this.avgCookiesNum = avgCookiesNum;
-    this.cookiesPerHour = [];
-    this.total = 0;
-    // console.log(this);
-    branches.push(this);
+function Branch(branchName, minHourlyCustomer, maxHourlyCustomer, avgCookieSalePerCustomer) {
+  this.name = branchName;
+  this.min = minHourlyCustomer;
+  this.maxCustomer = maxHourlyCustomer;
+  this.avgCookiesPerHour = avgCookieSalePerCustomer;
+  this.customersNumberPerHour = [];
+  this.cookiesPurchasedPerHour = [];
+  this.totalcookies = 0;
 
+  BranchArr.push(this);
 }
 
-// the random custumer per hour =
-branchCookie.prototype.calcCustomerPerHour=function () {
-    return randomCustumerNumber(this.minNum, this.maxNum);
+console.log(BranchArr);
+Branch.prototype.RandomCustomerNumber = function () {
+  for (let i = 0; i < hours.length; i++) {
+    this.customersNumberPerHour.push(
+      randomNumberOf(this.min, this.maxCustomer)
+    );
+  }
+};
+
+Branch.prototype.CookiesP = function () {
+  this.totalcookies = 0;
+  for (let i = 0; i < hours.length; i++) {
+    this.cookiesPurchasedPerHour.push(
+      Math.floor(this.customersNumberPerHour[i] * this.avgCookiesPerHour)
+    );
+    this.totalcookies = this.totalcookies + this.cookiesPurchasedPerHour[i];
+  }
+};
+
+let seattle = new Branch('Seattle', 23, 65, 6.3);
+let tokyo = new Branch('Tokyo', 3, 24, 1.2);
+let dubai = new Branch('Dubai', 11, 38, 3.7);
+let paris = new Branch('Paris', 20, 38, 2.3);
+let lima = new Branch('Lima', 2, 16, 4.6);
+
+
+
+
+
+//creat Globle Table
+
+//get the parent Element By ID
+let parentTable =document.getElementById('parent');
+
+//creat TAble Element
+let tableElement=document.createElement('table');
+
+//append the Table Element to the parent
+parentTable.appendChild(tableElement);
+
+
+
+function firstHeadingRow() {
+
+  // creat the first tr element
+  let trElement = document.createElement('tr');
+
+  //append it to the table element
+  tableElement.appendChild(trElement);
+
+  //creat the firt th element
+  let firstThElement = document.createElement('th');
+
+  //append first th element to the tr elment
+  trElement.appendChild(firstThElement);
+
+  //adding the text
+  firstThElement.textContent = 'Baranch Name ';
+
+
+
+  //for the hours heading Row
+  for (let x = 0; x < hours.length; x++) {
+
+    // creat th element for the hour heading row
+    let hoursHeadingRow = document.createElement('th');
+
+    // append it to the tr Element
+    trElement.appendChild(hoursHeadingRow);
+
+    //adding hour to the row
+    hoursHeadingRow.textContent = hours[x];
+  }
+
+
+  //for the final part of the row
+
+  // creat th element for the daily location total
+  let totalThElement = document.createElement('th');
+
+  // append it to the tr element 
+  trElement.appendChild(totalThElement);
+
+  //adding text 
+  totalThElement.textContent = 'Daily location /Total';
 }
 
-branchCookie.prototype.calcookiesPerHour = function () {
-    for (let i = 0; i < hours.length; i++) {
-        // the number cookies and multiply with avg in same function =
-        this.cookiesPerHour.push(Math.floor( this.calcCustomerPerHour() * this.avgCookiesNum));
-        this.total += this.cookiesPerHour[i];
-        // globalTotal+=this.cookiesPerHour[i];
+
+//render function
+Branch.prototype.render = function () {
+
+  // creat tr element
+  let trElement = document.createElement('tr');
+
+  //append to the table
+  tableElement.appendChild(trElement);
+
+  //creat td element
+  let tdname = document.createElement('td');
+
+  //eppend to the tr element
+  trElement.appendChild(tdname);
+
+  //add text
+  tdname.textContent = this.name;
+
+  for (let y = 0; y < hours
+    .length; y++) {
+ 
+    let tdBranchs = document.createElement('td');
+    trElement.appendChild(tdBranchs);
+    tdBranchs.textContent = this.cookiesPurchasedPerHour[y];
+    console.log(this.cookiesPurchasedPerHour[y]);
+  }
+
+  let thfElement = document.createElement('td');
+  trElement.appendChild(thfElement);
+  thfElement.textContent = this.totalcookies;
+};
+
+function finalRow() {
+
+  //creat the first tr for the final row
+  let trElement = document.createElement('tr');
+
+  //append it to the table element
+  tableElement.appendChild(trElement);
+
+  //creat the first th element for the final row
+  let firstThElement = document.createElement('th');
+
+  //append it to the tr element
+  trElement.appendChild(firstThElement);
+
+  //adding the text
+  firstThElement.textContent = 'Totals';
+
+  let totalOfTotal = 0;
+  for (let z = 0; z < hours.length; z++) {
+    let totalcookiesEachHour = 0;
+
+    for (let q = 0; q < BranchArr.length; q++) {
+      totalcookiesEachHour += BranchArr[q].cookiesPurchasedPerHour[z];
+      totalOfTotal += BranchArr[q].cookiesPurchasedPerHour[z];
     }
+
+    let finalTh = document.createElement('th');
+    trElement.appendChild(finalTh);
+    finalTh.textContent = totalcookiesEachHour;
+  }
+
+  let thfElement = document.createElement('th');
+  trElement.appendChild(thfElement);
+  thfElement.textContent = totalOfTotal;
 }
 
-let Seattle = new branchCookie('Seattle', 23, 65, 6.3);
+//get the Element by its id
+let parent = document.getElementById('userEvent');
 
-let Tokyo = new branchCookie('Tokyo',3, 24, 1.2);
+//add event listener
+userEvent.addEventListener('submit', submitter);
 
-let Dubai = new branchCookie('Dubai', 11, 38, 3.7);
-
-let Paris = new branchCookie('Paris', 20, 38, 2.3);
-
-let Lima = new branchCookie('Lima', 2, 16, 4.6);
-
-console.log('branches',branches);
-
-
-
-
-let contaier = document.getElementById('contaier');
-//create table in globel
-let table = document.createElement('table');
-//appeand
- contaier.appendChild(table);
-
-
-// making header function
-
-function headerRow() {
-    //create tr element in table
-    let tableHeadingRow = document.createElement('tr');
-    //append tr to table
-    table.appendChild(tableHeadingRow);
-    
-    
-    let firstTableHeader = document.createElement('th');
-    tableHeadingRow.appendChild(firstTableHeader);
-    firstTableHeader.textContent='Name';
-    
-    for (let i = 0; i < hours.length; i++) {
-        // create the first row
-        let hoursTh = document.createElement('th');
-        //appeanding
-        tableHeadingRow.appendChild(hoursTh);
-        //give the element the contant
-        hoursTh.textContent = hours[i];
-    
-    }
-    
-    let finalTableHeader = document.createElement('th');
-    tableHeadingRow.appendChild(finalTableHeader);
-    finalTableHeader.textContent = "Daily Location Total";
-
-    
-}    
-
-
-
-branchCookie.prototype.render = function () {
-    //  
-    let BranchRow = document.createElement('tr');
-    // append 
-    table.appendChild(BranchRow);
-
-    //  td element
-    let tableData = document.createElement('td');
-    // append 
-    BranchRow.appendChild(tableData);
-    //  text content
-    tableData.textContent=this.branch;
-
-
-    for (let i = 0; i < hours.length; i++) {
-        //  td element 
-        let cookiesTd = document.createElement('td');
-        // append
-        BranchRow.appendChild(cookiesTd);
-        // text content 
-        cookiesTd.textContent = this.cookiesPerHour[i];
-    }
-
-    // total td 
-    let totalTd = document.createElement('td');
-    // append total to the store row
-    BranchRow.appendChild(totalTd);
-    // give text content
-    totalTd.textContent = this.total;
-
-}
-
-// get the element by id for the form
-let branchesForm= document.getElementById('branchesForm');
-console.log(branchesForm);
-
-// add the event listener
-
-branchesForm.addEventListener('submit',submitter);
-
-// create the submitter function
-
+//create a submitter function , it just run when click the submit button .
 function submitter(event) {
-    // console.log("hello");
-  // prevent the default behaviour of refreshing the page
   event.preventDefault();
 
-  console.log(event);
+  let name = event.target.place.value;
+  let minCustomer = parseInt(event.target.min.value);
+  let maxCustomer = parseInt(event.target.max.value);
+  let avgCookiesPerHour = parseInt(event.target.avg.value);
 
-  branchName, minCustumerNumber, maxCustomerNumber, avgCookie
+  let userEvent = new Branch(
+    name,
+    minCustomer,
+    maxCustomer,
+    avgCookiesPerHour
+  );
+  console.log(userEvent);
+  tableElement.textContent = '';
 
-//   new instance of the constructor with the new info
-  let amman=new branchCookie(branchName, minCustomerNum, maxCustomerNum, avgCookiesNum);
-  console.log(amman);
+  firstHeadingRow();
 
-  let container=document.getElementById('branchesProfile');
-
-  container.textContent='';
-  
-  for (let i = 0; i < hours.length; i++) {
-    branches[i].calcCustomerPerHour();
-    branches[i].calcookiesPerHour();
-    
-    branches[i].render();
+  for (let h = 0; h < BranchArr.length; h++) {
+    BranchArr[h].RandomCustomerNumber();
+    BranchArr[h].CookiesP();
+    BranchArr[h].render();
   }
+
+  finalRow();
 }
 
+firstHeadingRow();
 
-// footer function
-function footer() {
-    let footerRow=document.createElement('tr');
-
-    // append 
-    table.appendChild(footerRow);
-
-    // make first th for footer
-
-    let firstTableHeader = document.createElement('th');
-
-    // append 
-    footerRow.appendChild(firstTableHeader);
-
-    // text content
-    firstTableHeader.textContent='Totals';
-
-
-    // with samer helping == lab preview
-    let totalForEachHour;
-    let megaTotal=0;
-    // making the totals
-    for (let i = 0; i < hours.length; i++) {
-        totalForEachHour=0;
-        for (let j = 0; j < branches.length; j++) {
-            
-            totalForEachHour+=branches[j].cookiesPerHour[i];
-            megaTotal+=branches[j].cookiesPerHour[i];
-         
-        }
-        console.log(totalForEachHour);
-        let footerTh=document.createElement('th');
-
-        footerRow.appendChild(footerTh);
-
-        footerTh.textContent=totalForEachHour;
-
-    }
-
-    // total of totals
-    let totalTh= document.createElement('th');
-
-    // append
-    footerRow.appendChild(totalTh);
-
-    //  text content:
-    totalTh.textContent=megaTotal;
-     
+for (let h = 0; h < BranchArr.length; h++) {
+  BranchArr[h].RandomCustomerNumber();
+  BranchArr[h].CookiesP();
+  BranchArr[h].render();
 }
 
-headerRow();
-for (let i = 0; i < branches.length; i++) {
-    branches[i].calcookiesPerHour();
-    branches[i].render();
-}
-footer();
-
+finalRow();
